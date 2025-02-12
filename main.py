@@ -7,9 +7,9 @@ import wlan
 
 def secondDisplay(screen, second):
 	if second<30:
-		screen.pixel(int(second),7,1)
+		screen.pixel(second+1,7,1)
 	else:
-		screen.pixel(int(second-30),7,0)
+		screen.pixel(second-29,7,0)
 	screen.show()
 
 
@@ -33,6 +33,7 @@ except:
     pass
 
 tzoffset = -28800
+#zoffset = 0
 
 
 screen.brightness(6)
@@ -45,8 +46,8 @@ while True:
 	year,month,day,hour,minute,second,dummy1,dummy2 = time.localtime(time.time()+tzoffset)
 	if oldMinute != minute:
 		screen.fill(0)
-		screen.text(str(hour), -1, 0, 1)
-		screen.text(str(minute),16,0,1)
+		screen.text("{0:>2}".format(hour), -1, 0, 1)
+		screen.text("{:02d}".format(minute),16,0,1)
 		screen.pixel(15,2,1)
 		screen.pixel(15,5,1)
 		screen.show()
