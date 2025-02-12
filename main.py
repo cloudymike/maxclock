@@ -53,6 +53,15 @@ while True:
 
 	if oldSecond != second:
 		secondDisplay(screen, second)
+
+	# Do housekeeping at 2am
+	if ((hour==2) and (minute==0) and (second==0)):
+		try:
+			ntptime.settime()
+		except:
+			pass
+
+
 	oldSecond = second
 	oldMinute = minute
 	time.sleep_ms(100)
