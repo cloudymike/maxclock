@@ -1,0 +1,6 @@
+[submodule "micropython-max7219"]
+	path = micropython-max7219
+	url = git@github.com:vrialland/micropython-max7219.git
+[submodule "micropythonexamples"]
+	path = micropythonexamples
+	url = git@github.com:cloudymike/micropythonexamples.git
