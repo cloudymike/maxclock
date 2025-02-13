@@ -44,9 +44,10 @@ oldSecond=66
 
 while True:
 	year,month,day,hour,minute,second,dummy1,dummy2 = time.localtime(time.time()+tzoffset)
+	hour12 = 12 if (hour%12)==0 else hour%12
 	if oldMinute != minute:
 		screen.fill(0)
-		screen.text("{0:>2}".format(hour), -1, 0, 1)
+		screen.text("{0:>2}".format(hour12), -1, 0, 1)
 		screen.text("{:02d}".format(minute),16,0,1)
 		screen.pixel(15,2,1)
 		screen.pixel(15,5,1)

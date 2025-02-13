@@ -1,5 +1,5 @@
 #!/bin/bash
-PORT='/dev/ttyUSB1'
+PORT='/dev/ttyUSB0'
 PUSHCMD="ampy --port $PORT put "
 CURDIR=$(pwd)
 TOPDIR=${CURDIR%/*}
