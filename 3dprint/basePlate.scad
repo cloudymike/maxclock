@@ -2,13 +2,18 @@
 
 totalWidth=368;
 plateWidth=totalWidth/2;
-height=90;
+height=94;
 backHeight=60;
-lip=10;
-overhang=5;
+lip=20;
+overhang=15;
 roofLean=20; //degrees
-maxDepth=90;
+maxDepth=100;
 thickness=2;
+
+m5_length=16;
+m5_countersink_depth=2.9;
+m5_countersink_top_diameter=9.2;
+m5_diameter=5.5;
 
 module sideWall()
 {
@@ -26,11 +31,26 @@ module basePlate()
 {
   
   cube([plateWidth, height, thickness],center=true);
-  translate([0,-(height+lip)/2,(overhang)/2])cube([plateWidth,lip,overhang+thickness],center=true);  
+  difference()
+  {
+    translate([0,-(height+lip)/2,(overhang)/2])cube([plateWidth,lip,overhang+thickness],center=true); 
+    translate([plateWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
+    translate([-plateWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
+  } 
 }
 
 
+module countersink(top_radius, hole_radius, sink_depth)
+{
+      rotate_extrude($fn=200) 
+      polygon([[0,0],[top_radius,0],[hole_radius,sink_depth],[0,sink_depth]]);
+}
 
+module screwHole()
+{
+      countersink(m5_countersink_top_diameter/2,2.5,m5_countersink_depth);
+      cylinder(d=m5_diameter,h=10*overhang,center=true, $fn=64);
+}
 
 module baseCover()
 {
@@ -39,9 +59,16 @@ module baseCover()
   translate([-(plateWidth-thickness)/2,0,0])sideWall();
 }
 
-//testing
-difference()
+module testPrint()
 {
-  baseCover();
-  translate([-20,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+//testing
+  difference()
+  {
+    basePlate();
+    translate([-55,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    translate([147,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    translate([0,20,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+  }
 }
+
+baseCover();
