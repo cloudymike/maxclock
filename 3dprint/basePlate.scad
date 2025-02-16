@@ -12,7 +12,7 @@ thickness=2;
 
 m5_length=16;
 m5_countersink_depth=2.9;
-m5_countersink_top_diameter=9.2;
+m5_countersink_top_diameter=10.0;
 m5_diameter=5.5;
 
 module sideWall()
@@ -48,7 +48,8 @@ module countersink(top_radius, hole_radius, sink_depth)
 
 module screwHole()
 {
-      countersink(m5_countersink_top_diameter/2,2.5,m5_countersink_depth);
+      cylinder(d=m5_countersink_top_diameter,h=1,center=true, $fn=64);
+      translate([0,0,0.5])countersink(m5_countersink_top_diameter/2,2.5,m5_countersink_depth);
       cylinder(d=m5_diameter,h=10*overhang,center=true, $fn=64);
 }
 
@@ -64,11 +65,11 @@ module testPrint()
 //testing
   difference()
   {
-    basePlate();
-    translate([-55,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
-    translate([147,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
-    translate([0,20,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    baseCover();
+    translate([-8,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    //translate([147,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    //translate([0,30,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
   }
 }
 
-baseCover();
+testPrint();
