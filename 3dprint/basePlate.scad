@@ -69,6 +69,17 @@ module baseCover()
   translate([-(plateWidth-thickness)/2,0,0])insideWall();
 }
 
+module leftCover()
+{
+  baseCover();
+}
+
+module rightCover()
+{
+  mirror([1,0,0])baseCover();
+}
+
+
 module testPrint()
 {
 //testing
@@ -82,4 +93,4 @@ module testPrint()
 }
 
 //testPrint();
-baseCover();
+leftCover();
