@@ -26,6 +26,15 @@ module sideWall()
                   [maxDepth,0]]);
 }
 
+module insideWall()
+{
+  difference()
+  {
+    sideWall();
+    translate([0,0,3*maxDepth/4])cube([2*thickness,height,maxDepth/2],center=true);
+  }
+}
+
 
 module basePlate()
 {
@@ -57,7 +66,7 @@ module baseCover()
 {
   basePlate();
   translate([(plateWidth-thickness)/2,0,0])sideWall();
-  translate([-(plateWidth-thickness)/2,0,0])sideWall();
+  translate([-(plateWidth-thickness)/2,0,0])insideWall();
 }
 
 module testPrint()
@@ -66,10 +75,11 @@ module testPrint()
   difference()
   {
     baseCover();
-    translate([-8,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    translate([8,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
     //translate([147,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
     //translate([0,30,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
   }
 }
 
-testPrint();
+//testPrint();
+baseCover();
