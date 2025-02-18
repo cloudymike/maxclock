@@ -1,7 +1,7 @@
 
 
 totalWidth=368;
-plateWidth=totalWidth/2;
+halfWidth=totalWidth/2;
 height=94;
 backHeight=60;
 lip=20;
@@ -36,7 +36,7 @@ module insideWall()
 }
 
 
-module basePlate()
+module basePlate(plateWidth)
 {
   
   cube([plateWidth, height, thickness],center=true);
@@ -62,21 +62,23 @@ module screwHole()
       cylinder(d=m5_diameter,h=10*overhang,center=true, $fn=64);
 }
 
-module baseCover()
+module baseCover(plateWidth)
 {
-  basePlate();
+  basePlate(plateWidth);
   translate([(plateWidth-thickness)/2,0,0])sideWall();
   translate([-(plateWidth-thickness)/2,0,0])insideWall();
 }
 
 module leftCover()
 {
-  baseCover();
+  plateWidth=halfWidth;
+  baseCover(plateWidth);
 }
 
 module rightCover()
 {
-  mirror([1,0,0])baseCover();
+  plateWidth=halfWidth-2;
+  mirror([1,0,0])baseCover(plateWidth);
 }
 
 
@@ -85,12 +87,13 @@ module testPrint()
 //testing
   difference()
   {
-    baseCover();
-    translate([8,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    rightCover();
+    //translate([8,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
     //translate([147,0,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
-    //translate([0,30,0])cube([plateWidth,height+2*lip, maxDepth*2],center=true);
+    translate([0,30,0])cube([halfWidth,height+2*lip, maxDepth*2],center=true);
+    translate([0,-height/2-15,0])cube([halfWidth,lip, maxDepth*2],center=true);
+    translate([0,0,70])cube([200,200,80],center=true);
   }
 }
 
-//testPrint();
-leftCover();
+testPrint();
