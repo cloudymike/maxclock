@@ -77,7 +77,7 @@ module leftCover()
 
 module rightCover()
 {
-  plateWidth=halfWidth-2;
+  plateWidth=halfWidth-1.5;
   mirror([1,0,0])baseCover(plateWidth);
 }
 
