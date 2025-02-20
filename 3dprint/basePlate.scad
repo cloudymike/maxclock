@@ -43,8 +43,10 @@ module basePlate(plateWidth)
   difference()
   {
     translate([0,-(height+lip)/2,(overhang)/2])cube([plateWidth,lip,overhang+thickness],center=true); 
-    translate([plateWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
-    translate([-plateWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
+    
+    // Do NOT move the screw holes when the size of the plate is adjusted.
+    translate([halfWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
+    translate([-halfWidth/4,-height/2-lip+m5_countersink_top_diameter/2+1,-(thickness)/2]) screwHole();
   } 
 }
 
@@ -96,4 +98,4 @@ module testPrint()
   }
 }
 
-testPrint();
+rightCover();
