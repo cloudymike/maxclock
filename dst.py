@@ -4,9 +4,9 @@ import time
 def findDst(timeS):
 
 	(year,month,day,hour,minute,sec,wday,doy,dummy3) = time.localtime(timeS)
-	return(findDST(month,day,wday))
+	return(isDST(month,day,wday))
 
-def findDST(month, day, wday):
+def isDST(month, day, wday):
 	mywday=(wday+1) %7
 
 	if month>3 and month<11:

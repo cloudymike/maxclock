@@ -13,6 +13,20 @@ def secondDisplay(screen, second):
 		screen.pixel(second-29,7,0)
 	screen.show()
 
+def isDST(month, day, wday):
+	mywday=(wday+1) %7
+
+	if month>3 and month<11:
+		dst=True
+	elif month==3 and (day-mywday)>7:
+		dst=True
+	elif month==11 and (day-mywday)<0:
+		dst=True
+	else:
+		dst=False
+
+	return(dst) 
+
 
 # Initialize ADC (Analog to Digital Converter)
 adc = machine.ADC(machine.Pin(36))  # The ESP32 pin GPIO36 (ADC0) connected to the light sensor
@@ -52,7 +66,7 @@ oldMinute=66
 oldSecond=66
 
 while True:
-	year,month,day,hour,minute,second,dummy1,dummy2 = time.localtime(time.time()+tzoffset)
+	year,month,day,hour,minute,second,dow,dummy2 = time.localtime(time.time()+tzoffset)
 	hour12 = 12 if (hour%12)==0 else hour%12
 	if oldMinute != minute:
 		screen.fill(0)
@@ -68,12 +82,17 @@ while True:
 		screen.brightness(brightness)
 		secondDisplay(screen, second)
 
-	# Do housekeeping at 2am
-	if ((hour==2) and (minute==0) and (second==0)):
-		try:
-			ntptime.settime()
-		except:
-			pass
+		# Do housekeeping at 2am
+		if ((hour==2) and (minute==0) and (second==0)):
+			try:
+				ntptime.settime()
+			except:
+				pass
+
+			if isDST(month,day,dow):
+				tzoffset = -25200
+			else:
+				tzoffset = -28800
 
 
 	oldSecond = second
