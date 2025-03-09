@@ -55,9 +55,17 @@ try:
 except:
     pass
 
-tzoffset = -28800
-#zoffset = 0
+# Offset in seconds for current timezone from UTC
+# st, standard time ds, daylights saving
+stoffset = -28800
+dsoffset = -25200
 
+# bootstrap with standard time
+year,month,day,hour,minute,second,dow,dummy2 = time.localtime(time.time()+stoffset)
+if isDST(month,day,dow):
+	tzoffset = dsoffset
+else:
+	tzoffset = stoffset
 
 screen.brightness(6)
 
@@ -90,9 +98,9 @@ while True:
 				pass
 
 			if isDST(month,day,dow):
-				tzoffset = -25200
+				tzoffset = dsoffset
 			else:
-				tzoffset = -28800
+				tzoffset = stoffset
 
 
 	oldSecond = second
