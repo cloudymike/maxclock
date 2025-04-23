@@ -86,7 +86,8 @@ while True:
 
 	if oldSecond != second:
 		value = adc.read()  # Read the 12-bit ADC value directly
-		brightness=math.floor(value/256)
+		#brightness=math.floor(value/256)
+		brightness=math.floor(value/512)
 		screen.brightness(brightness)
 		secondDisplay(screen, second)
 
