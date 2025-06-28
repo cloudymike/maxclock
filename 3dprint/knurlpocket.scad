@@ -9,8 +9,9 @@ knurl_wall = 1.6;
 module m2knurl_ring(knurl_depth = 5)
 {
 
+  ringR=knurl_radius+knurl_wall;
     difference() {   
-        cylinder(h=knurl_depth, r=knurl_radius+knurl_wall,center=true);
+        cylinder(h=knurl_depth, r1=2*ringR, r2=ringR, center=true);
         m2knurl_pocket(knurl_depth = 5);
     }
     
@@ -19,7 +20,7 @@ module m2knurl_ring(knurl_depth = 5)
 module m2knurl_pocket(knurl_depth = 5)
 {
  union() {
-    cylinder(h=knurl_depth+0.001, r=knurl_radius, center=true);
+    cylinder(h=knurl_depth+0.001, r=knurl_radius,center=true);
     translate([0,0,0.4*knurl_depth])
         cylinder(h=0.25 * knurl_depth, r1=knurl_radius, r2=1.2*knurl_radius, center=true);
  }

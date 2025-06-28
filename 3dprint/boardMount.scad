@@ -1,6 +1,9 @@
 use <knurlpocket.scad>
+
+thickness=2;
+
 plateX=106;
-plateZ=1;
+plateZ=thickness;
 
 boardX=89;
 boardY=52;
@@ -30,11 +33,12 @@ module boardPlate()
 
 module centerPeg()
 {
-  translate([0,0,(mountHeight+boardThickness)/2])cylinder(d=centerHoleSize,h=mountHeight+boardThickness,center=true,$fn=64);
-  translate([0,0,mountHeight/2])cylinder(d=centerHoleSize+4,h=mountHeight,center=true,$fn=64);
+  translate([0,0,mountHeight+boardThickness])cylinder(d1=centerHoleSize,d2=centerHoleSize/2,h=boardThickness*2,center=true,$fn=64);
+  translate([0,0,mountHeight/2])cylinder(d2=centerHoleSize+4,d1=(centerHoleSize+4)*2,h=mountHeight,center=true,$fn=64);
 }
 
-module mountPlate()
+//Actual mount plate without orienting transformations
+module mountPlateNT()
 {
   boardPlate();
   translate([centerHoleX-boardX/2,0,plateZ])centerPeg();
@@ -53,4 +57,10 @@ module mountPlate()
   translate([0,-14,plateZ])rib();
 }
 
+//Orient to fit pieces together
+module mountPlate()
+{
+  translate([0,thickness/2,boardX/2]) rotate([0,90,-90])
+    mountPlateNT();
+}
 mountPlate();
