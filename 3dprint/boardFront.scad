@@ -33,7 +33,9 @@ module frontPlateNT()
       translate([0,frontY/2+mountHeight/2+thickness/2,0])cube([frontX,mountHeight+thickness,frontZ],center=true);
       //LDR pipe
       translate([LDRoffset,0,LDRpipe/2])cylinder(d=LDRd+gap+2,h=LDRpipe,center=true,$fn=64);
-    }    
+    }
+    // Cut the top, yes this is a hack  
+    translate([0,-frontY/2,0])cube([frontX,8,frontZ+0.1],center=true);  
     //USB opening
     cube([usbX+gap,usbY+gap,frontZ+0.1],center=true);    
     // USB board notch
