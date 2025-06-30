@@ -73,7 +73,6 @@ module displayFront()
   translate([-displayX/3,displayOffset-(displayY/2+screwSize),screwHeadHeight/2])
     rotate([180,0,0])
       metric_bolt(headtype="countersunk",size=screwSize, l=20, details=true, $fn=32);
-  
 }
 
 module holdBar(){
@@ -91,8 +90,9 @@ module holdBar(){
 difference()
 {
 displayFront();
-translate([plateX/4+8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
-translate([-plateX/4-8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
+//translate([plateX/4+8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
+//translate([-plateX/4-8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
+  //translate([0,0,20])cube([20,80,10],center=true);
 }
 
 
