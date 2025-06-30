@@ -2,10 +2,10 @@
 
 totalWidth=368;
 halfWidth=totalWidth/2;
-height=94;
+height=95;
 backHeight=60;
 lip=20;
-overhang=15;
+overhang=20;
 roofLean=20; //degrees
 maxDepth=100;
 thickness=2;

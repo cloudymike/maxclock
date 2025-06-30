@@ -13,8 +13,8 @@ halfWidth=totalWidth/2;
 height=94;
 
 
-displayX=131.5;
-displayY=31.85;
+displayX=131.5+0.1;
+displayY=31.85+0.1;
 
 
 wallZ=5;
@@ -37,7 +37,7 @@ windowThickness=0.4;
 
 OX=0.2;
 
-screwSize=6;
+screwSize=8;
 screwHeadHeight=get_metric_bolt_head_height(screwSize);
 
 module displayFront()
@@ -47,7 +47,7 @@ module displayFront()
     union()
     {
       translate([0,0,thickness/2])cube([plateX,plateY,thickness],center=true);
-      translate([0,displayOffset,cutZ/2])cube([displayX+wallZ*2, displayY+wallZ*4,cutZ],center=true);
+      translate([0,displayOffset,cutZ/2])cube([displayX+wallZ*2, displayY+wallZ*6,cutZ],center=true);
    }
     translate([0,displayOffset,cutZ/2+windowThickness])cube([displayX, displayY,cutZ],center=true);
   }
@@ -91,7 +91,9 @@ module holdBar(){
 difference()
 {
 displayFront();
-//translate([plateX/4+8,0,0])cube([plateX/2, 2*plateY, 25],center=true);
-//translate([-plateX/4-8,0,0])cube([plateX/2, 2*plateY, 25],center=true);
+translate([plateX/4+8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
+translate([-plateX/4-8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
 }
+
+
 //translate([0,displayOffset,20])holdBar();
