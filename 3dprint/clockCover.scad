@@ -13,7 +13,8 @@ maxDepth=100;
 thickness=2;
 
 frontExtra=17.6;
-usbY=-20;
+
+usbY=-height/2+5;
 displayY=12;
 
 displayCutX=131.5+4;
@@ -21,14 +22,14 @@ displayCutY=31.85+4;
 
 difference()
 {
-  rightCover();
-  translate([-halfWidth/2+15,usbY,0])cube([15,50,10],center=true);
+  leftCover();
+  translate([0,usbY+12,0])cube([50,15,10],center=true);
   translate([0,displayY,0])cube([displayCutX,displayCutY,10],center=true);
 }
 
 
-translate([-halfWidth/2+thickness,usbY,frontExtra-thickness/2])
-  rotate([0,0,90])
+translate([0,usbY,frontExtra-thickness/2])
+  rotate([0,0,180])
     boardAssemble();
 
 translate([0,displayY,-thickness/2])
