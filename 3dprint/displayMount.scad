@@ -89,10 +89,12 @@ module holdBar(){
 
 difference()
 {
-displayFront();
+  displayFront();
 //translate([plateX/4+8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
 //translate([-plateX/4-8,0,0])cube([plateX/2, 2*plateY, 50],center=true);
-  //translate([0,0,20])cube([20,80,10],center=true);
+  translate([-plateX/4,0,0])cube([plateX, 2*plateY, 50],center=true);
+  
+  translate([0,0,20])cube([20,80,10],center=true);
 }
 
 
