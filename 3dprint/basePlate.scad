@@ -15,6 +15,11 @@ m5_countersink_depth=2.9;
 m5_countersink_top_diameter=10.0;
 m5_diameter=5.5;
 
+function get_totalWidth() = totalWidth;
+function get_thickness()=thickness;
+function get_height()=height;
+
+
 module sideWall()
 {
   translate([0,-height/2,0])
