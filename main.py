@@ -27,6 +27,8 @@ def isDST(month, day, wday):
 
 	return(dst) 
 
+def onHours(h):
+	return((h<17) and (h>5))
 
 # Initialize ADC (Analog to Digital Converter)
 adc = machine.ADC(machine.Pin(36))  # The ESP32 pin GPIO36 (ADC0) connected to the light sensor
@@ -78,18 +80,26 @@ while True:
 	hour12 = 12 if (hour%12)==0 else hour%12
 	if oldMinute != minute:
 		screen.fill(0)
-		screen.text("{0:>2}".format(hour12), -1, 0, 1)
-		screen.text("{:02d}".format(minute),16,0,1)
-		screen.pixel(15,2,1)
-		screen.pixel(15,5,1)
+		if onHours(hour):
+			screen.text("{0:>2}".format(hour12), -1, 0, 1)
+			screen.text("{:02d}".format(minute),16,0,1)
+			screen.pixel(15,2,1)
+			screen.pixel(15,5,1)
 		screen.show()
 
 	if oldSecond != second:
 		value = adc.read()  # Read the 12-bit ADC value directly
-		#brightness=math.floor(value/256)
-		brightness=math.floor(value/512)
+
+		#if onHours(hour):
+		#	brightness=math.floor(value/512)
+		#else:
+		#	brightness=0
+		brightness=0;
+
+		print("Brightness: {}".format(brightness))
 		screen.brightness(brightness)
-		secondDisplay(screen, second)
+		if onHours(hour):
+			secondDisplay(screen, second)
 
 		# Do housekeeping at 2am
 		if ((hour==2) and (minute==0) and (second==0)):
